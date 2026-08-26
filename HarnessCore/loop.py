@@ -35,7 +35,9 @@ def run_loop(model, system, messages, tools, on_event, before_tool, max_turns=80
         for call in result["tool_calls"]:
             on_event("tool_start", call)
             text = _run_tool(tools, call, before_tool)
-            messages.append({"role": "tool", "name": call["name"], "text": text})
+            # Some providers (OpenAI's call_id) need the call's signature echoed
+            # back on its result to match the two up; harmless where it's unused.
+            messages.append({"role": "tool", "name": call["name"], "text": text, "signature": call["signature"]})
             on_event("tool_end", {"name": call["name"], "text": text})
 
     messages.append({"role": "user", "text": "Turn limit reached; wrap up now."})
