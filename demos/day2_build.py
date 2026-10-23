@@ -24,6 +24,16 @@ DEFAULT_TASK = (
 )
 
 
+PYTHON = "python" if sys.platform == "win32" else "python3"
+SYSTEM = (
+    "You are a careful coding assistant with shell and file tools, working in a "
+    f"scratch directory. Run Python with `{PYTHON}`. Always attempt the user's "
+    "request with your tools: a policy layer in the harness enforces safety and "
+    "will report BLOCKED or permission errors as tool results. When a call is "
+    "blocked, do not work around it; explain politely and stop."
+)
+
+
 def on_event(kind, payload):
     """Print each loop event so the transcript is visible on stdout."""
     if kind == "assistant":
@@ -44,7 +54,7 @@ def main():
     tools = {t.name: t for t in core_tools(SCRATCH)}
     answer = run_loop(
         provider.DEFAULT_MODEL,
-        "You are a careful coding assistant with shell and file tools, working in a scratch directory.",
+        SYSTEM,
         [{"role": "user", "text": task}],
         tools,
         on_event,
