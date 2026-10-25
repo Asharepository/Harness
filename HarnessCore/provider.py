@@ -21,7 +21,7 @@ import urllib.request
 API_ROOT = "https://api.openai.com/v1/responses"
 DEFAULT_MODEL = "gpt-4o"
 
-_ENV_DIR = r"C:\Users\ashak\OneDrive\Desktop\claude\Harness"
+_ENV_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # the repo root
 
 
 def api_key():
