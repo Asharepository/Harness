@@ -5,3 +5,4 @@ __pycache__/
 demos/scratch/
 demos/scratch_ctx/
 demos/scratch_mem/
+.harness/
