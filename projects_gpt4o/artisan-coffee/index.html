@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artisan Coffee Roasters</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <!-- Sticky Navigation -->
+    <nav id="navbar">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#origins">Origins</a></li>
+            <li><a href="#subscription">Subscription</a></li>
+            <li><a href="#brew-guide">Brew Guide</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><button id="dark-mode-toggle">Dark Mode</button></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section with Product Artifact -->
+    <section id="home">
+        <h1>Welcome to Artisan Coffee Roasters</h1>
+        <p>Discover the finest specialty coffee in Goa.</p>
+        <!-- SVG Product Artifact -->
+        <svg id="product-artifact" width="100" height="100">
+            <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="none" />
+            <line x1="10" y1="10" x2="90" y2="90" stroke="black" stroke-width="3" />
+            <rect x="20" y="20" width="60" height="60" stroke="black" stroke-width="3" fill="none" />
+            <ellipse cx="50" cy="50" rx="30" ry="20" stroke="black" stroke-width="3" fill="none" />
+        </svg>
+    </section>
+
+    <!-- Origins Section -->
+    <section id="origins">
+        <h2>Our Coffee Origins</h2>
+        <div class="origin-card">
+            <h3>Brazil Santos</h3>
+            <p>A smooth, nutty coffee with a hint of chocolate.</p>
+            <p>Price: $15</p>
+        </div>
+        <div class="origin-card">
+            <h3>Colombian Supremo</h3>
+            <p>A rich, aromatic coffee with a citrusy finish.</p>
+            <p>Price: $18</p>
+        </div>
+        <div class="origin-card">
+            <h3>Kenya AA</h3>
+            <p>A bright, fruity coffee with a wine-like acidity.</p>
+            <p>Price: $22</p>
+        </div>
+        <div class="origin-card">
+            <h3>Sumatra Mandheling</h3>
+            <p>A full-bodied coffee with earthy, spicy notes.</p>
+            <p>Price: $20</p>
+        </div>
+        <div class="origin-card">
+            <h3>Yirgacheffe</h3>
+            <p>A floral, tea-like coffee with a sweet finish.</p>
+            <p>Price: $25</p>
+        </div>
+        <div class="origin-card">
+            <h3>Guatemala Antigua</h3>
+            <p>A well-balanced coffee with a rich, chocolaty flavor.</p>
+            <p>Price: $19</p>
+        </div>
+    </section>
+
+    <!-- Subscription Section -->
+    <section id="subscription">
+        <h2>Subscription Plans</h2>
+        <div id="subscription-toggle">
+            <button id="monthly">Monthly</button>
+            <button id="annual">Annual</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Plan</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Basic</td>
+                    <td>$10</td>
+                </tr>
+                <tr>
+                    <td>Standard</td>
+                    <td>$20</td>
+                </tr>
+                <tr>
+                    <td>Premium</td>
+                    <td>$30</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Brew Guide Section -->
+    <section id="brew-guide">
+        <h2>Brew Guide</h2>
+        <div class="tab">
+            <button class="tablinks">Espresso</button>
+            <button class="tablinks">French Press</button>
+            <button class="tablinks">Pour Over</button>
+        </div>
+        <div class="tabcontent">
+            <h3>Espresso</h3>
+            <p>Use fine grounds and 9 bars of pressure for a rich shot.</p>
+        </div>
+        <div class="tabcontent" style="display:none;">
+            <h3>French Press</h3>
+            <p>Coarse grounds and a 4-minute steep for a robust flavor.</p>
+        </div>
+        <div class="tabcontent" style="display:none;">
+            <h3>Pour Over</h3>
+            <p>Medium grounds and a slow pour for clarity and aroma.</p>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="accordion">
+            <button class="accordion-button">What is specialty coffee?</button>
+            <div class="accordion-content" style="display:none;">
+                <p>Specialty coffee is high-quality coffee rated 80 or above on a 100-point scale.</p>
+            </div>
+        </div>
+        <div class="accordion">
+            <button class="accordion-button">How should I store my coffee?</button>
+            <div class="accordion-content" style="display:none;">
+                <p>Store in an airtight container in a cool, dark place.</p>
+            </div>
+        </div>
+        <div class="accordion">
+            <button class="accordion-button">What grind size should I use?</button>
+            <div class="accordion-content" style="display:none;">
+                <p>Grind size depends on the brewing method; finer for espresso, coarser for French press.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About Us</h2>
+        <p>Artisan Coffee Roasters is a specialty coffee roaster based in Goa, dedicated to sourcing and roasting the finest coffee beans from around the world. Our mission is to bring exceptional coffee experiences to our customers through sustainable practices and a passion for quality.</p>
+    </section>
+
+    <section id="process">
+        <h2>Our Process</h2>
+        <p>We carefully select coffee beans from trusted farmers, ensuring that each batch meets our high standards. Our roasting process is tailored to highlight the unique flavors and aromas of each origin, providing a distinct and memorable cup of coffee.</p>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>For inquiries, please reach out to us at contact@artisancoffeeroasters.com or visit our roastery in Goa. We look forward to sharing our love for coffee with you.</p>
+    </section>
+
+    <script>
+        // JavaScript for interactive elements
+    </script>
+</body>
+</html>

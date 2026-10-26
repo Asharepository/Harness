@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%234CAF50%22/><circle cx=%2250%22 cy=%2250%22 r=%2230%22 fill=%22%23FF5722%22/></svg>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viper Snake Game</title>
+    <style>
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .score-board {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        @media (max-width: 360px) {
+            button {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+        :root {
+            --background-color: #f0f0f0;
+            --snake-color: #4CAF50;
+            --food-color: #FF5722;
+            --grid-size: 20px;
+            --canvas-width: 100%;
+            --canvas-height: auto;
+            --font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: var(--background-color);
+            font-family: var(--font-family);
+        }
+        canvas {
+            border: 1px solid #ccc;
+            background-color: white;
+            outline: none;
+        }
+        canvas:focus {
+            outline: 2px solid var(--food-color);
+        }
+        .score-board {
+            display: flex;
+            justify-content: space-between;
+            width: var(--canvas-width);
+            margin-top: 10px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: var(--snake-color);
+            color: white;
+            transition: background-color 0.3s;
+        }
+        button:focus {
+            outline: 2px solid var(--food-color);
+        }
+        button:hover {
+            background-color: #388E3C;
+        }
+    </style>
+</head>
+<body>
+    <main role="main" aria-label="Snake Game">
+        <section aria-labelledby="gameInstructions">
+            <h2 id="gameInstructions" hidden>Game Instructions</h2>
+            <p hidden>Use arrow keys to move the snake. Eat food to score points. Avoid walls and yourself. Press 'Start' to begin and 'Pause' to pause the game.</p>
+        </section>
+    <div class="game-container">
+        <canvas id="gameCanvas" width="400" height="400" role="img" aria-label="Snake game canvas"></canvas>
+        <div class="score-board">
+            <div>Score: <span id="score">0</span></div>
+            <div>High Score: <span id="highScore">0</span></div>
+        </div>
+        <button id="startButton" aria-label="Start Game">Start</button>
+        <button id="pauseButton" aria-label="Pause Game">Pause</button>
+    </div>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreElement = document.getElementById('score');
+        const highScoreElement = document.getElementById('highScore');
+        const startButton = document.getElementById('startButton');
+        const pauseButton = document.getElementById('pauseButton');
+
+        let snake = [{x: 200, y: 200}];
+        let direction = {x: 0, y: 0};
+        let food = {x: 0, y: 0};
+        let score = 0;
+        let highScore = 0;
+        try {
+            highScore = localStorage.getItem('highScore') || 0;
+        } catch (error) {
+            console.error('Could not access localStorage:', error);
+        }
+        let speed = 100;
+        let animationFrameId;
+        let isPaused = false;
+
+        highScoreElement.textContent = highScore;
+
+        function placeFood() {
+            food.x = Math.floor(Math.random() * (canvas.width / parseInt(getComputedStyle(document.documentElement).getPropertyValue('--grid-size')))) * parseInt(getComputedStyle(document.documentElement).getPropertyValue('--grid-size'));
+            food.y = Math.floor(Math.random() * (canvas.height / parseInt(getComputedStyle(document.documentElement).getPropertyValue('--grid-size')))) * parseInt(getComputedStyle(document.documentElement).getPropertyValue('--grid-size'));
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--snake-color');
+            snake.forEach(segment => ctx.fillRect(segment.x, segment.y, parseInt(getComputedStyle(document.documentElement).getPropertyValue('--grid-size')), parseInt(getComputedStyle(document.documentElement).getPropertyValue('--grid-size'))));
+            ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--food-color');
+            ctx.fillRect(food.x, food.y, parseInt(getComputedStyle(document.documentElement).getPropertyValue('--grid-size')), parseInt(getComputedStyle(document.documentElement).getPropertyValue('--grid-size')));
+        }
+
+        function update() {
+    draw();
+            if (isPaused) return;
+
+            const head = {x: snake[0].x + direction.x * parseInt(getComputedStyle(document.documentElement).getPropertyValue('--grid-size')), y: snake[0].y + direction.y * parseInt(getComputedStyle(document.documentElement).getPropertyValue('--grid-size'))};
+            snake.unshift(head);
+
+            if (head.x === food.x && head.y === food.y) {
+                score += 10;
+                scoreElement.textContent = score;
+                if (score % 50 === 0) {
+                    speed = Math.max(speed - 10, 50);
+                    cancelAnimationFrame(animationFrameId);
+                    animationFrameId = requestAnimationFrame(update);
+                }
+                placeFood();
+            } else {
+                snake.pop();
+            }
+
+            if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height || snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)) {
+                if (score > highScore) {
+                    localStorage.setItem('highScore', score);
+                    highScoreElement.textContent = score;
+                }
+                resetGame();
+            }
+        }
+
+        function resetGame() {
+            snake = [{x: 200, y: 200}];
+            direction = {x: 0, y: 0};
+            score = 0;
+            scoreElement.textContent = score;
+            speed = 100;
+            cancelAnimationFrame(animationFrameId);
+            placeFood();
+        }
+
+        function changeDirection(event) {
+            const keyPressed = event.key;
+            const goingUp = direction.y === -1;
+            const goingDown = direction.y === 1;
+            const goingRight = direction.x === 1;
+            const goingLeft = direction.x === -1;
+
+            if (keyPressed === 'ArrowUp' && !goingDown) {
+                direction = {x: 0, y: -1};
+            }
+            if (keyPressed === 'ArrowDown' && !goingUp) {
+                direction = {x: 0, y: 1};
+            }
+            if (keyPressed === 'ArrowLeft' && !goingRight) {
+                direction = {x: -1, y: 0};
+            }
+            if (keyPressed === 'ArrowRight' && !goingLeft) {
+                direction = {x: 1, y: 0};
+            }
+        }
+
+        function togglePause() {
+            isPaused = !isPaused;
+            pauseButton.textContent = isPaused ? 'Resume' : 'Pause';
+            if (!isPaused) {
+                animationFrameId = requestAnimationFrame(update);
+            } else {
+                clearInterval(gameInterval);
+            }
+        }
+
+        document.addEventListener('keydown', changeDirection);
+        startButton.addEventListener('click', () => {
+            if (confirm('Are you sure you want to reset the game?')) {
+                resetGame();
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = requestAnimationFrame(update);
+            }
+        });
+        pauseButton.addEventListener('click', togglePause);
+
+        placeFood();
+        draw();
+    </script>
+</body>
+</html>
