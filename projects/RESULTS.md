@@ -1,0 +1,5 @@
+| project | result | turns (build+review[+extra]) | notes |
+|---|---|---|---|
+| artisan-coffee | PASS | 7+22 | PASS index.html exists (34913 chars); PASS localStorage; PASS accordion; PASS visible words > 1200 (1527); PASS sections >= 9 (9); PASS inline SVG >= 4 (12); PASS no lorem ipsum; PASS CSS custom properties; PASS @media queries; PASS :focus styles; PASS interactions >= 3 |
+| taskman | PASS | 7+8 | PASS taskman.py exists; PASS test_taskman.py exists; PASS unittest green (Ran 18 tests); PASS >=10 tests; PASS tests use subprocess; PASS subcommands in --help |
+| viper | PASS | 10+25 | PASS index.html exists (24270 chars); PASS requestAnimationFrame; PASS has <canvas; PASS has localStorage; PASS has pause; PASS restart control |

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artisan Coffee Goa | Small-batch specialty roaster</title>
+  <meta name="description" content="Artisan Coffee Goa roasts traceable specialty coffee for slow mornings, beachside cafés, and home brewers across India." />
+  <style>
+    :root {
+      --bg: #f7f1e8;
+      --surface: rgba(255,255,255,0.72);
+      --surface-strong: #fffaf4;
+      --text: #1f1712;
+      --muted: #65564c;
+      --line: rgba(61, 42, 28, 0.14);
+      --brand: #9b5b2e;
+      --brand-2: #d28b45;
+      --accent: #2f6b5f;
+      --shadow: 0 18px 40px rgba(58, 35, 18, 0.12);
+      --radius: 24px;
+      --radius-sm: 16px;
+      --max: 1200px;
+    }
+    body.dark {
+      --bg: #161312;
+      --surface: rgba(33,29,27,0.82);
+      --surface-strong: #211d1b;
+      --text: #f5ede4;
+      --muted: #c3b3a5;
+      --line: rgba(255,255,255,0.1);
+      --brand: #e0a15d;
+      --brand-2: #f0c07f;
+      --accent: #7bc1b3;
+      --shadow: 0 18px 40px rgba(0,0,0,0.35);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background: radial-gradient(circle at top, rgba(210,139,69,0.12), transparent 30%), var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img, svg { max-width: 100%; display: block; }
+    button, input { font: inherit; }
+    button {
+      cursor: pointer;
+      border: 0;
+      background: none;
+      color: inherit;
+    }
+    :focus-visible {
+      outline: 3px solid var(--brand-2);
+      outline-offset: 3px;
+      border-radius: 10px;
+    }
+    .container { width: min(var(--max), calc(100% - 2rem)); margin: 0 auto; }
+    .section { padding: 4.5rem 0; }
+    .eyebrow {
+      display: inline-block;
+      padding: 0.35rem 0.8rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--accent);
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3 { line-height: 1.1; margin: 0 0 1rem; font-family: Georgia, serif; }
+    p { margin: 0 0 1rem; color: var(--muted); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.95rem 1.3rem;
+      border-radius: 999px;
+      background: var(--text);
+      color: var(--bg);
+      font-weight: 700;
+      box-shadow: var(--shadow);
+    }
+    .btn.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--line);
+      box-shadow: none;
+    }
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -3rem;
+      padding: 0.8rem 1rem;
+      background: var(--text);
+      color: var(--bg);
+      border-radius: 999px;
+      z-index: 40;
+    }
+    .skip-link:focus-visible { top: 1rem; }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: rgba(247,241,232,0.75);
+      border-bottom: 1px solid var(--line);
+    }
+    body.dark .site-header { background: rgba(22,19,18,0.78); }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      min-height: 74px;
+    }
+    .brand { display: flex; align-items: center; gap: 0.8rem; font-weight: 800; }
+    .brand-mark {
+      width: 42px; height: 42px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      display: grid; place-items: center; color: white;
+      box-shadow: var(--shadow);
+    }
+    .nav-links, .nav-actions { display: flex; align-items: center; gap: 1rem; }
+    .nav-links a { color: var(--muted); font-weight: 600; }
+    .nav-links a:hover, .nav-links a[aria-current="true"] { color: var(--text); }
+    .toggle {
+      padding: 0.7rem 1rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .hero-grid, .story-grid, .brew-grid { display: grid; gap: 2rem; align-items: center; }
+    .hero-grid { grid-template-columns: 1.1fr 0.9fr; padding: 4rem 0 2rem; }
+    .hero-copy h1 { font-size: clamp(2.8rem, 6vw, 5.5rem); }
+    .hero-copy p { font-size: 1.08rem; max-width: 62ch; }
+    .hero-actions, .hero-metrics { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .hero-note {
+      margin-top: 1.25rem;
+      padding: 1rem 1.1rem;
+      border-left: 4px solid var(--brand);
+      background: var(--surface);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+    .metric, .card, .plan, .faq-item, .guide-panel, .story-card, .review, .visit-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .metric { padding: 1rem 1.1rem; min-width: 150px; }
+    .metric strong { display: block; font-size: 1.3rem; color: var(--text); }
+    .hero-art { padding: 1.4rem; }
+    .hero-art svg { width: 100%; height: auto; }
+    .section-head { display: flex; justify-content: space-between; gap: 1rem; align-items: end; margin-bottom: 2rem; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+    .card { padding: 1.3rem; }
+    .origin-card { display: flex; flex-direction: column; gap: 0.9rem; }
+    .origin-card svg { width: 72px; height: 72px; }
+    .origin-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .origin-tags span {
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(210,139,69,0.12);
+      color: var(--text);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+    .price { font-size: 1.4rem; font-weight: 800; color: var(--brand); }
+    .origin-meta { display: flex; justify-content: space-between; gap: 1rem; margin: 0.2rem 0; color: var(--muted); font-size: 0.95rem; }
+    .story-grid { grid-template-columns: repeat(3, 1fr); }
+    .story-card { padding: 1.2rem; }
+    .subscription-wrap { overflow-x: auto; }
+    .billing-toggle {
+      display: inline-flex; padding: 0.35rem; border: 1px solid var(--line); border-radius: 999px; background: var(--surface);
+      margin-bottom: 1rem;
+    }
+    .billing-toggle button { padding: 0.7rem 1rem; border-radius: 999px; font-weight: 700; }
+    .billing-toggle .active { background: var(--text); color: var(--bg); }
+    .billing-note { margin-bottom: 1.5rem; font-size: 0.95rem; }
+    table { width: 100%; border-collapse: collapse; min-width: 720px; }
+    th, td { padding: 1rem; border-bottom: 1px solid var(--line); text-align: left; }
+    th { color: var(--muted); font-size: 0.95rem; }
+    .plan-price { font-size: 1.8rem; font-weight: 800; color: var(--brand); }
+    .brew-grid { grid-template-columns: 260px 1fr; }
+    .tab-list { display: grid; gap: 0.8rem; }
+    .tab-btn, .faq-question {
+      width: 100%; text-align: left; padding: 1rem 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--line); background: var(--surface);
+    }
+    .tab-btn.active { background: var(--text); color: var(--bg); }
+    .guide-panel { padding: 1.5rem; }
+    .guide-stats { display: flex; flex-wrap: wrap; gap: 0.7rem; margin: 1rem 0 1.1rem; }
+    .guide-stats span {
+      padding: 0.45rem 0.7rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+    .guide-panel[hidden], .faq-answer[hidden] { display: none; }
+    .faq-list { display: grid; gap: 1rem; }
+    .faq-item { padding: 0.7rem; }
+    .faq-answer { padding: 0.5rem 1rem 1rem; }
+    .reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .review, .visit-card { padding: 1.2rem; }
+    .review strong { display: block; margin-top: 1rem; color: var(--text); }
+    .visit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .newsletter {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-top: 1.2rem;
+    }
+    .newsletter input {
+      flex: 1 1 240px;
+      min-height: 52px;
+      padding: 0.9rem 1rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--surface-strong);
+      color: var(--text);
+    }
+    footer { padding: 2rem 0 3rem; border-top: 1px solid var(--line); color: var(--muted); }
+    @media (max-width: 900px) {
+      .hero-grid, .brew-grid, .story-grid, .visit-grid, .reviews, .cards { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 680px) {
+      .hero-grid, .brew-grid, .story-grid, .visit-grid, .reviews, .cards { grid-template-columns: 1fr; }
+      .section { padding: 3.5rem 0; }
+      .hero-copy h1 { font-size: 2.6rem; }
+      .section-head { flex-direction: column; align-items: start; }
+      .nav { align-items: flex-start; padding: 0.8rem 0; }
+      .nav-actions { gap: 0.5rem; flex-wrap: wrap; justify-content: flex-end; }
+      .toggle { padding: 0.65rem 0.85rem; }
+      .hero-art { order: -1; }
+      table { min-width: 640px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="Artisan Coffee Goa home">
+        <span class="brand-mark">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M20 16c6 4 18 4 24 0-2 8-2 24-12 32C22 40 22 24 20 16Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M32 14c4-4 4-8 1-11" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>
+        </span>
+        <span>Artisan Coffee Goa</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#origins">Origins</a>
+        <a href="#subscriptions">Subscriptions</a>
+        <a href="#brew-guide">Brew Guide</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="toggle" id="themeToggle" aria-pressed="false">Dark mode</button>
+        <a class="btn secondary" href="#visit">Visit the roastery</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <section class="section">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Roasted in Goa, shipped fresh</span>
+          <h1>Specialty coffee for sea-salt mornings and slow, exact brews.</h1>
+          <p>We are a small-batch roastery in Goa sourcing expressive coffees from Indian estates and celebrated global producers. Every roast is profiled for sweetness, clarity, and a finish that still tastes vivid after the cup cools. Whether you brew before dawn at home or pour all day in a café, we roast to make ritual feel generous.</p>
+          <div class="hero-actions">
+            <a class="btn" href="#origins">Shop this week’s origins</a>
+            <a class="btn secondary" href="#brew-guide">Learn to brew better</a>
+          </div>
+          <p class="hero-note">This week’s roast recommendation: start with Araku Valley Bloom on V60 if you want a bright, elegant cup, or Goa Monsoon Revival on moka pot if you want comfort with more bass notes.</p>
+          <div class="hero-metrics">
+            <div class="metric"><strong>48 hrs</strong><span>from roast to dispatch</span></div>
+            <div class="metric"><strong>6 origins</strong><span>live on the menu today</span></div>
+            <div class="metric"><strong>92+</strong><span>average cupping score</span></div>
+          </div>
+        </div>
+        <div class="hero-art card">
+          <svg viewBox="0 0 520 520" role="img" aria-label="Hand-drawn coffee bag, cup, and palm frond illustration">
+            <rect x="110" y="70" width="210" height="300" rx="28" fill="var(--surface-strong)" stroke="var(--line)" stroke-width="3"/>
+            <path d="M130 120c55 18 115 18 170 0" fill="none" stroke="var(--brand)" stroke-width="5" stroke-linecap="round"/>
+            <path d="M160 185c18-28 54-45 92-45 43 0 81 20 96 51-20 29-54 47-95 47-40 0-74-19-93-53Z" fill="none" stroke="var(--text)" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M248 145c20 18 20 55 0 86-20-31-20-68 0-86Z" fill="none" stroke="var(--brand-2)" stroke-width="4"/>
+            <rect x="165" y="265" width="100" height="54" rx="16" fill="rgba(210,139,69,0.12)" stroke="var(--line)"/>
+            <text x="215" y="298" text-anchor="middle" font-size="22" fill="var(--text)" font-family="Georgia">Goa Roast</text>
+            <path d="M355 282h48c18 0 32 14 32 32s-14 32-32 32h-8" fill="none" stroke="var(--text)" stroke-width="4" stroke-linecap="round"/>
+            <path d="M310 250h82c18 0 32 14 32 32v66c0 18-14 32-32 32h-82c-18 0-32-14-32-32v-66c0-18 14-32 32-32Z" fill="var(--surface-strong)" stroke="var(--text)" stroke-width="4"/>
+            <path d="M330 235c-10-12-12-24-4-38M360 228c-8-14-8-28 0-42M390 231c-6-12-5-24 3-36" fill="none" stroke="var(--brand)" stroke-width="4" stroke-linecap="round"/>
+            <path d="M430 95c-42 18-67 51-79 101M451 120c-30 17-47 39-58 67M411 72c-18 11-31 24-40 39" fill="none" stroke="var(--accent)" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="104" cy="410" r="12" fill="var(--brand-2)"/>
+            <circle cx="138" cy="438" r="8" fill="var(--accent)"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="origins">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Current release</span>
+            <h2>Six coffees with distinct altitude, process, and personality.</h2>
+          </div>
+          <p>Every lot is roasted twice a week in compact batches so cafés get consistency and home brewers get the same sweetness we tasted on the cupping table.</p>
+        </div>
+        <div class="cards">
+          <article class="card origin-card"><svg viewBox="0 0 80 80" aria-hidden="true"><path d="M18 50c8-18 20-28 36-30 6 12 5 25-4 37-12 3-23 1-32-7Z" fill="none" stroke="var(--brand)" stroke-width="3" stroke-linejoin="round"/><path d="M26 54c12-8 23-17 34-28" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/></svg><h3>Goa Monsoon Revival</h3><p>A playful house roast built for milk drinks and moka pots, with cocoa nib, jaggery, and a warm spice finish that feels familiar without tasting flat.</p><div class="origin-tags"><span>Comforting</span><span>Low acidity</span></div><div class="origin-meta"><span>Washed + monsooned</span><span>250 g</span></div><div class="price">₹540</div></article>
+          <article class="card origin-card"><svg viewBox="0 0 80 80" aria-hidden="true"><path d="M18 54c10-20 24-30 40-30 4 14 1 27-9 38-12 2-22 0-31-8Z" fill="none" stroke="var(--brand-2)" stroke-width="3" stroke-linejoin="round"/><path d="M28 56c10-10 19-20 28-30" fill="none" stroke="var(--text)" stroke-width="3" stroke-linecap="round"/></svg><h3>Baba Budan Honey</h3><p>From Karnataka’s high slopes, this honey process cup lands with ripe apricot, toasted almond, and a syrupy body that rewards a slower pour.</p><div class="origin-tags"><span>Stone fruit</span><span>Syrupy</span></div><div class="origin-meta"><span>Honey process</span><span>250 g</span></div><div class="price">₹690</div></article>
+          <article class="card origin-card"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="20" fill="none" stroke="var(--accent)" stroke-width="3"/><path d="M24 46c10-8 22-8 32 0" fill="none" stroke="var(--brand)" stroke-width="3" stroke-linecap="round"/><path d="M40 20v40" fill="none" stroke="var(--brand-2)" stroke-width="3"/></svg><h3>Araku Valley Bloom</h3><p>Clean and floral with orange blossom, cane sugar, and a tea-like finish. It is the bag we recommend to anyone learning why lighter roasts can still feel complete.</p><div class="origin-tags"><span>Floral</span><span>Tea-like</span></div><div class="origin-meta"><span>Washed</span><span>250 g</span></div><div class="price">₹720</div></article>
+          <article class="card origin-card"><svg viewBox="0 0 80 80" aria-hidden="true"><path d="M20 56c8-18 22-30 40-34 4 12 2 24-7 36-14 4-25 3-33-2Z" fill="none" stroke="var(--text)" stroke-width="3" stroke-linejoin="round"/><path d="M26 50c12-6 24-14 36-24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/></svg><h3>Yirgacheffe Mist</h3><p>An Ethiopian lot with bergamot, peach skin, and jasmine aromatics. Best brewed with patience and a slightly cooler pour to keep the cup transparent.</p><div class="origin-tags"><span>Jasmine</span><span>Citrus</span></div><div class="origin-meta"><span>Washed</span><span>200 g</span></div><div class="price">₹880</div></article>
+          <article class="card origin-card"><svg viewBox="0 0 80 80" aria-hidden="true"><path d="M16 48c12-16 26-24 42-24 4 12 1 24-8 34-13 4-25 1-34-10Z" fill="none" stroke="var(--brand)" stroke-width="3" stroke-linejoin="round"/><circle cx="48" cy="32" r="8" fill="none" stroke="var(--brand-2)" stroke-width="3"/></svg><h3>Huila Sunset</h3><p>Colombian sweetness in full color: red berries, panela, and a rounded caramel finish. A dependable all-rounder for espresso and AeroPress alike.</p><div class="origin-tags"><span>Berry</span><span>Caramel</span></div><div class="origin-meta"><span>Washed</span><span>250 g</span></div><div class="price">₹810</div></article>
+          <article class="card origin-card"><svg viewBox="0 0 80 80" aria-hidden="true"><path d="M18 56c8-20 22-32 42-34 3 14 0 27-10 38-14 3-25 2-32-4Z" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linejoin="round"/><path d="M24 58c10-8 20-18 30-30" fill="none" stroke="var(--brand-2)" stroke-width="3" stroke-linecap="round"/></svg><h3>Sumatra Night Tide</h3><p>Deep, resinous, and quietly complex, with cedar, dark chocolate, and dried fig. Built for French press drinkers who want weight without bitterness.</p><div class="origin-tags"><span>Deep body</span><span>Chocolate</span></div><div class="origin-meta"><span>Wet hulled</span><span>250 g</span></div><div class="price">₹760</div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head"><div><span class="eyebrow">Why we roast this way</span><h2>Small systems, careful sourcing, and copy-worthy cups.</h2></div><p>We work with importers and estates that share harvest data, moisture readings, and processing notes so our roast decisions are based on evidence instead of guesswork.</p></div>
+        <div class="story-grid">
+          <article class="story-card"><svg viewBox="0 0 120 120" aria-hidden="true"><path d="M24 78c10-30 28-46 54-48 8 18 6 39-6 56-18 4-34 1-48-8Z" fill="none" stroke="var(--brand)" stroke-width="4" stroke-linejoin="round"/><path d="M34 82c18-12 35-26 51-42" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"/></svg><h3>Traceable lots</h3><p>Each bag lists producer, process, harvest window, and roast date because transparency should be standard, not premium. We want you to know what changed when a coffee tastes brighter in January than it did in November.</p></article>
+          <article class="story-card"><svg viewBox="0 0 120 120" aria-hidden="true"><path d="M28 78h64v12H28zM36 78V46c0-16 12-28 24-28s24 12 24 28v32" fill="none" stroke="var(--text)" stroke-width="4" stroke-linejoin="round"/><path d="M48 52c8 6 16 6 24 0" fill="none" stroke="var(--brand)" stroke-width="4" stroke-linecap="round"/></svg><h3>Profiled for sweetness</h3><p>Our roast curves aim for soluble sweetness first, then texture, then aromatic lift. That means fewer smoky notes, more fruit definition, and a cup that stays balanced across espresso, immersion, and filter methods.</p></article>
+          <article class="story-card"><svg viewBox="0 0 120 120" aria-hidden="true"><path d="M18 80c18-8 32-24 42-48 12 10 22 24 30 42-18 10-42 12-72 6Z" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linejoin="round"/><path d="M58 34c-2-8 0-16 6-22" fill="none" stroke="var(--brand-2)" stroke-width="4" stroke-linecap="round"/></svg><h3>Roasted for Goa weather</h3><p>Humidity changes extraction. We rest coffees with local conditions in mind and share grinder and ratio guidance that helps home brewers adapt when monsoon air makes yesterday’s recipe feel suddenly different.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="subscriptions">
+      <div class="container">
+        <div class="section-head"><div><span class="eyebrow">Subscriptions</span><h2>Choose a rhythm that keeps the grinder busy.</h2></div><p>Switch origins, skip a cycle, or pause before travel. The table updates live between monthly and annual billing, with annual plans priced at two months free.</p></div>
+        <div class="billing-toggle" role="tablist" aria-label="Billing period">
+          <button class="active" data-billing="monthly" aria-selected="true">Monthly</button>
+          <button data-billing="annual" aria-selected="false">Annual</button>
+        </div>
+        <p class="billing-note">Annual billing saves the equivalent of two months and is ideal for households or studios that want a stable coffee budget.</p>
+        <div class="subscription-wrap card" style="padding:1rem;">
+          <table>
+            <thead><tr><th>Plan</th><th>Best for</th><th>What you get</th><th>Price</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Starter</strong></td><td>One daily brewer</td><td>1 bag every month, grind on request, brew notes in every dispatch</td><td><span class="plan-price" data-monthly="₹590" data-annual="₹5,900">₹590</span></td></tr>
+              <tr><td><strong>Explorer</strong></td><td>Curious palates</td><td>2 rotating bags, one exclusive micro-lot each quarter, priority restock alerts</td><td><span class="plan-price" data-monthly="₹1,090" data-annual="₹10,900">₹1,090</span></td></tr>
+              <tr><td><strong>Studio</strong></td><td>Homes and small teams</td><td>4 bags, café-style dialing support, early access to experimental roasts</td><td><span class="plan-price" data-monthly="₹1,980" data-annual="₹19,800">₹1,980</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="brew-guide">
+      <div class="container brew-grid">
+        <div>
+          <span class="eyebrow">Brew guide</span>
+          <h2>Dial in three dependable recipes.</h2>
+          <div class="tab-list" role="tablist" aria-label="Brew methods">
+            <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="panel-v60" id="tab-v60">V60</button>
+            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-aeropress" id="tab-aeropress">AeroPress</button>
+            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-frenchpress" id="tab-frenchpress">French Press</button>
+          </div>
+        </div>
+        <div>
+          <article class="guide-panel" id="panel-v60" role="tabpanel" aria-labelledby="tab-v60"><h3>V60 for clarity</h3><div class="guide-stats"><span>15 g dose</span><span>250 g water</span><span>2:45 target</span></div><p>Use 15 g coffee to 250 g water at 94°C, medium grind. Bloom with 45 g for 35 seconds, then pour in three gentle circles to finish by 2:10. Aim for a total drawdown around 2:45. This recipe highlights florals and citrus without making the cup feel thin. If the finish tastes sharp, grind slightly finer and pour a touch slower. If it tastes woody, coarsen the grind and raise the water temperature by one degree.</p></article>
+          <article class="guide-panel" id="panel-aeropress" role="tabpanel" aria-labelledby="tab-aeropress" hidden><h3>AeroPress for sweetness</h3><div class="guide-stats"><span>16 g dose</span><span>230 g water</span><span>2:00 total</span></div><p>Use 16 g coffee to 230 g water at 92°C, medium-fine grind, inverted method. Add all water, stir five times, cap, and steep for 1:30 before flipping. Press slowly for 30 seconds. This gives a dense, sweet cup with enough body for milk or ice. For fruit-forward coffees, shorten the steep by 10 seconds. For chocolate-heavy coffees, extend the press slightly to pull more texture into the final cup.</p></article>
+          <article class="guide-panel" id="panel-frenchpress" role="tabpanel" aria-labelledby="tab-frenchpress" hidden><h3>French Press for body</h3><div class="guide-stats"><span>30 g dose</span><span>500 g water</span><span>9:00 settle</span></div><p>Use 30 g coffee to 500 g water at 93°C, coarse grind. Pour all water, stir once, and steep for four minutes. Break the crust, skim the surface, and let the grounds settle for another five minutes before plunging halfway. This slower finish produces a cleaner press pot with less sludge and more definition. If the cup feels muddy, grind coarser. If it feels weak, increase dose before changing time.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head"><div><span class="eyebrow">Roast calendar</span><h2>A weekly rhythm built for freshness, not warehouse stock.</h2></div><p>We roast filter profiles on Tuesdays and Fridays, espresso profiles on Wednesdays and Saturdays, then cup every batch before it leaves the room. That cadence keeps our menu lively while giving each coffee enough rest to taste settled rather than frantic.</p></div>
+        <div class="story-grid">
+          <article class="story-card"><h3>Tuesday</h3><p>Filter-focused roasts for floral and washed coffees, packed by afternoon for local pickup and next-day dispatch.</p></article>
+          <article class="story-card"><h3>Wednesday</h3><p>Espresso profiles for cafés and home machines, followed by dialing sessions that confirm sweetness under pressure and milk.</p></article>
+          <article class="story-card"><h3>Friday + Saturday</h3><p>Second roast cycle for the week, restock of subscriptions, and public cuppings that let customers taste how origin and process shape the cup.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-head"><div><span class="eyebrow">FAQ</span><h2>Questions we hear from first-time subscribers and café partners.</h2></div><p>We keep the answers practical because good service should reduce friction before it becomes a support ticket.</p></div>
+        <div class="faq-list">
+          <div class="faq-item"><button class="faq-question" aria-expanded="false">How fresh is the coffee when it ships?</button><div class="faq-answer" hidden><p>Most orders leave the roastery within 48 hours of roast. Espresso-focused coffees are usually best from day 6 onward, while filter roasts often open up beautifully from day 4. We print the roast date clearly so you can time your first brew instead of guessing.</p></div></div>
+          <div class="faq-item"><button class="faq-question" aria-expanded="false">Can I change grind size between deliveries?</button><div class="faq-answer" hidden><p>Yes. Subscription customers can switch between whole bean, espresso, moka pot, AeroPress, pour-over, and French press before each billing cycle. We still recommend whole bean whenever possible, but we grind to order when convenience matters more than theory.</p></div></div>
+          <div class="faq-item"><button class="faq-question" aria-expanded="false">Do you supply cafés and boutique stays in Goa?</button><div class="faq-answer" hidden><p>We do. We work with beach cafés, design hotels, and small kitchens that want coffee with a point of view. Wholesale partners get calibration help, brew recipes, and menu language that explains the cup without sounding rehearsed.</p></div></div>
+          <div class="faq-item"><button class="faq-question" aria-expanded="false">What if I prefer lower-acidity coffees?</button><div class="faq-answer" hidden><p>Choose Goa Monsoon Revival or Sumatra Night Tide first. Both are roasted to emphasize sweetness and body over sparkling acidity. If you write to us with your current favorite, we can usually point you to a bag that feels familiar while still tasting more articulate.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head"><div><span class="eyebrow">From our counters</span><h2>What regulars say after the second bag, not just the first sip.</h2></div><p>We care about repeatability because a beautiful first cup means little if the next five are unpredictable.</p></div>
+        <div class="reviews">
+          <article class="review"><p>“The Explorer plan has become our Sunday ritual. The coffees are expressive, but the brew notes make them approachable even when the profile is new to us.”</p><strong>Meera, Panaji</strong></article>
+          <article class="review"><p>“We serve Huila Sunset in milk drinks at our studio café and it cuts through beautifully without tasting roasty. Guests notice the sweetness immediately.”</p><strong>Rohan, Assagao</strong></article>
+          <article class="review"><p>“Their recipes account for Goa humidity better than most guides online. That alone saved me several frustrating mornings during monsoon.”</p><strong>Ananya, Dona Paula</strong></article>
+        </div>
+        <div class="hero-metrics" aria-label="Customer proof points">
+          <div class="metric"><strong>4.9/5</strong><span>average subscriber rating</span></div>
+          <div class="metric"><strong>27 cafés</strong><span>served across Goa and beyond</span></div>
+          <div class="metric"><strong>96%</strong><span>renew after the first quarter</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="visit">
+      <div class="container visit-grid">
+        <div class="visit-card"><span class="eyebrow">Visit the roastery</span><h2>Drop in for a cupping, a bag recommendation, or a quick espresso before the market opens.</h2><p>Our roasting room sits between the old Latin quarter and the river road, close enough for a morning detour and calm enough for a proper tasting. We host public cuppings every Saturday, keep a rotating brew bar menu, and love helping new brewers choose a first grinder or dripper that fits their routine instead of chasing trends.</p><p><strong>Hours:</strong> Tue–Sun, 8:00–17:00<br><strong>Address:</strong> Rua de São Tomé, Fontainhas, Goa</p><form class="newsletter"><input type="email" aria-label="Email address" placeholder="Get roast notes by email" /><button class="btn" type="button">Join the list</button></form></div>
+        <div class="visit-card"><svg viewBox="0 0 320 220" role="img" aria-label="Hand-drawn map style illustration of roastery and coast"><path d="M20 170c48-20 92-28 132-24 42 4 84-8 148-44" fill="none" stroke="var(--accent)" stroke-width="5" stroke-linecap="round"/><path d="M52 150l42-54 34 28-40 52z" fill="none" stroke="var(--text)" stroke-width="4" stroke-linejoin="round"/><path d="M92 96l18-24 24 18-18 24" fill="none" stroke="var(--brand)" stroke-width="4"/><circle cx="110" cy="122" r="8" fill="var(--brand-2)"/><path d="M220 52c18 10 34 28 46 54M202 74c12 8 22 20 30 36" fill="none" stroke="var(--brand)" stroke-width="4" stroke-linecap="round"/><path d="M248 148c10 0 18 8 18 18s-8 18-18 18-18-8-18-18 8-18 18-18Z" fill="none" stroke="var(--text)" stroke-width="4"/></svg><p>Easy pickup for local orders, same-day dispatch for in-stock bags ordered before noon, and tasting flights for teams building new café menus.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Artisan Coffee Goa roasts in small batches, ships across India, and welcomes curious drinkers into the process. Brew slower. Taste more.</p>
+    </div>
+  </footer>
+
+  <script>
+    const body = document.body;
+    const themeToggle = document.getElementById('themeToggle');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sections = document.querySelectorAll('main section[id]');
+    const savedTheme = localStorage.getItem('artisan-theme');
+    if (savedTheme === 'dark') {
+      body.classList.add('dark');
+      themeToggle.setAttribute('aria-pressed', 'true');
+      themeToggle.textContent = 'Light mode';
+    }
+    themeToggle.addEventListener('click', () => {
+      const dark = body.classList.toggle('dark');
+      localStorage.setItem('artisan-theme', dark ? 'dark' : 'light');
+      themeToggle.setAttribute('aria-pressed', String(dark));
+      themeToggle.textContent = dark ? 'Light mode' : 'Dark mode';
+    });
+
+    const billingButtons = document.querySelectorAll('[data-billing]');
+    const prices = document.querySelectorAll('.plan-price');
+    billingButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        billingButtons.forEach(btn => {
+          btn.classList.remove('active');
+          btn.setAttribute('aria-selected', 'false');
+        });
+        button.classList.add('active');
+        button.setAttribute('aria-selected', 'true');
+        const mode = button.dataset.billing;
+        prices.forEach(price => price.textContent = price.dataset[mode]);
+      });
+    });
+
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.guide-panel');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        panels.forEach(panel => panel.hidden = true);
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        document.getElementById(tab.getAttribute('aria-controls')).hidden = false;
+      });
+    });
+
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const expanded = question.getAttribute('aria-expanded') === 'true';
+        question.setAttribute('aria-expanded', String(!expanded));
+        question.nextElementSibling.hidden = expanded;
+      });
+    });
+
+    const setCurrentNav = () => {
+      let current = '';
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 140 && rect.bottom >= 140) current = section.id;
+      });
+      navLinks.forEach(link => {
+        const active = link.getAttribute('href') === `#${current}`;
+        if (active) link.setAttribute('aria-current', 'true');
+        else link.removeAttribute('aria-current');
+      });
+    };
+    setCurrentNav();
+    window.addEventListener('scroll', setCurrentNav, { passive: true });
+  </script>
+</body>
+</html>
